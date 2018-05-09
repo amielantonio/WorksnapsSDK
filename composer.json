@@ -1,13 +1,19 @@
 {
     "name": "amielantonio/worksnaps-sdk",
     "description": "Worksnaps SDK and samples for REST API",
+    "keywords" : "worksnaps, sdk, rest, time tracking",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Ämiel Antonio",
+            "name": "Amiel Antonio",
             "email": "amielnicole.antonio@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php" : ">= 5.6",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "psr/log": "^1.0.0"
+    }
 }
