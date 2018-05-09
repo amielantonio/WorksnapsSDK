@@ -1,0 +1,13 @@
+{
+    "name": "amielantonio/worksnaps-sdk",
+    "description": "Worksnaps SDK and samples for REST API",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ämiel Antonio",
+            "email": "amielnicole.antonio@gmail.com"
+        }
+    ],
+    "require": {}
+}
