@@ -1,7 +1,7 @@
 {
     "name": "amielantonio/worksnaps-sdk",
     "description": "Worksnaps SDK and samples for REST API",
-    "keywords" : ["worksnaps, sdk, rest, time tracking"],
+    "keywords" : ["worksnaps, sdk, rest, time tracking, worksnaps sdk, worksnaps api"],
     "type": "library",
     "license": "MIT",
     "authors": [

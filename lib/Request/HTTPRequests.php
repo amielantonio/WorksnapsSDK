@@ -10,7 +10,7 @@ class HTTPRequests {
 
     private $response;
 
-    private $status_code;
+    private $response_code;
 
     private $output;
 
@@ -80,50 +80,37 @@ class HTTPRequests {
         //Get URI
         $endpoint = $this->buildEndpoint();
 
-        $newEndpoint = str_replace( '{id}', $id, $endpoint );
+        $endpoint = str_replace( '{id}', $id, $endpoint );
 
-        //Start cUrl to get the data
-        $ch = curl_init( $newEndpoint );
+        //Create a Curl Instance
+        $curl = new Curl( $endpoint, $this->token );
 
-        if( curl_exec( $ch ) === false ) {
-            curl_error( $ch );
-        }
 
-        $options = require "/../Config/CurlConfig.php";
+        //Do a curl to the endpoint
+        $curl->doCurl(  'get' );
 
-        curl_setopt_array( $ch, $options  );
-        curl_setopt( $ch, CURLOPT_USERPWD, $this->token );
-        curl_setopt( $ch, CURLOPT_POST, 0 );
-
-        $response = curl_exec( $ch );
-
-        curl_close( $ch ); // close cURL resource
+        //Receive Response
+        $response = $curl->response;
 
         return $this->xmlToArray( $response );
 
     }
 
     public function post( $data ){
-        //Start cUrl to get the data
-        $ch = curl_init();
 
-        //Get URI
         $endpoint = $this->buildEndpoint();
 
-        if( curl_exec( $ch ) === false ) {
-            curl_error( $ch );
-        }
+        $curl = new Curl( $endpoint, $this->token );
 
-        curl_setopt( $ch, CURLOPT_URL, $endpoint );
-        curl_setopt( $ch, CURLOPT_USERPWD, $this->token );
-        curl_setopt( $ch, CURLOPT_POST, 1 );
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 
-        $response = curl_exec( $ch );
+        $data = $this->arrayToXml( $data );
 
-        curl_close( $ch ); // close cURL resource
+        $curl->doCurl( 'post', $data );
 
-        return $this->xmlToArray( $response );
+
+
+
+
     }
 
     public function put( $data ){
@@ -169,6 +156,21 @@ class HTTPRequests {
         $result = json_decode( $jsonResult, true );
 
         return $result;
+
+    }
+
+    /**
+     * Method to convert Array to XML format
+     *
+     * @param $array
+     * @return mixed
+     */
+    private function arrayToXml( $array ){
+
+        $xml = new \SimpleXMLElement( '<root/>' );
+        array_walk_recursive( $array, array($xml, 'addChild') );
+
+        return $xml->asXML();
 
     }
 

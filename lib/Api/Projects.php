@@ -26,14 +26,14 @@ class Projects extends Worksnaps {
      */
     public function getProjects(){
 
-        $request = new Request( $this->projectsEndpoint, $this->token);
+        $request = new Request( $this->projectsEndpoint, $this->token );
 
         return $request->get();
 
     }
 
     /**
-     *
+     * Get a specific project from Worksnaps
      *
      * @param $projectID
      * @return mixed
@@ -46,7 +46,17 @@ class Projects extends Worksnaps {
 
     }
 
+    /**
+     * Create a new project to worksnaps
+     *
+     * @param $data
+     * @return bool|string
+     */
     public function saveProject( $data ){
+
+        $request = new Request( $this->projectsEndpoint, $this->token);
+
+        return ( $request->post( $data ) )? true : "Something unexpected happened";
 
     }
 
