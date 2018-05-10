@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Api;
+namespace Worksnaps\Api;
 
 
-use App\Core\Worksnaps;
-use App\Request\HTTPRequests as Request;
+use Worksnaps\Core\Worksnaps;
+use Worksnaps\Request\HTTPRequests as Request;
 
 class Projects extends Worksnaps {
 
@@ -19,13 +19,43 @@ class Projects extends Worksnaps {
     }
 
 
+    /**
+     * Get Projects from Worksnaps
+     *
+     * @return mixed
+     */
     public function getProjects(){
 
-        $request = new Request( $this->projectEndpoint, $this->token);
+        $request = new Request( $this->projectsEndpoint, $this->token);
 
         return $request->get();
 
     }
+
+    /**
+     *
+     *
+     * @param $projectID
+     * @return mixed
+     */
+    public function getProject( $projectID ){
+
+        $request = new Request( $this->projectEndpoint, $this->token );
+
+        return $request->getById( $projectID );
+
+    }
+
+    public function saveProject( $data ){
+
+    }
+
+
+    public function updateProject(){
+
+    }
+
+
 
 
 }
