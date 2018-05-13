@@ -25,7 +25,7 @@ class Curl{
     /*
      * Get the http response code
      */
-    private $http_code;
+    public $http_code;
 
     /*
      * Store the response to the Curl Response
@@ -51,7 +51,7 @@ class Curl{
     /**
      * Do a Curl Request to the endpoint
      *
-     * @param $endpoint
+     * @param $data
      * @param $verb
      */
     public function doCurl( $verb, $data = [] ){
@@ -68,8 +68,9 @@ class Curl{
         curl_setopt( $ch, CURLOPT_POST, $this->parseVerb( $verb ) );
         curl_setopt( $ch, CURLOPT_USERPWD, $this->token );
 
-        //Set Post fields for none GET requests
-        if( $verb <> 'get'){
+        // Set Post fields for none GET requests and DELETE Requests
+        // because this requests does not need to contain any fields to be passed
+        if( $verb <> 'get' || $verb <> 'delete'){
             $data = json_encode( $data );
             curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
         }
