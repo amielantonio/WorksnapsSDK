@@ -75,7 +75,7 @@ class Projects extends Worksnaps {
      */
     public function updateProject( $id, $data){
 
-        $request = new Request( $this->projectEndpoint, $this->token);
+        $request = new Request( $this->specificProjectEndpoint, $this->token);
 
         return ( $request->put( $id, $data ) )? true : "Something unexpected happened";
 
@@ -83,7 +83,7 @@ class Projects extends Worksnaps {
 
     public function deleteProject( $id ){
 
-        $request = new Request( $this->projectEndpoint, $this->token );
+        $request = new Request( $this->specificProjectEndpoint, $this->token );
 
         return ( $request->delete( $id ) )? true : "Something unexpected happened";
 
