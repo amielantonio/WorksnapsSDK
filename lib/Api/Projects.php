@@ -6,13 +6,19 @@ namespace Worksnaps\Api;
 use Worksnaps\Core\Worksnaps;
 use Worksnaps\Request\HTTPRequests as Request;
 
+/**
+ * Class Projects
+ * @package Worksnaps\Api
+ */
 class Projects extends Worksnaps {
 
     private $projectsEndpoint = '/projects.xml';
 
-    private $projectEndpoint = '/projects/{id}.xml';
+    private $specificProjectEndpoint = '/projects/{id}.xml';
 
-    //Implement Parent Constructor Class
+    /**
+     * {@inheritdoc}
+     */
     public function __construct($token)
     {
         parent::__construct($token);
@@ -40,7 +46,7 @@ class Projects extends Worksnaps {
      */
     public function getProject( $projectID ){
 
-        $request = new Request( $this->projectEndpoint, $this->token );
+        $request = new Request( $this->specificProjectEndpoint, $this->token );
 
         return $request->getById( $projectID );
 
