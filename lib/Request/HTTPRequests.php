@@ -10,10 +10,7 @@ class HTTPRequests {
 
     private $response;
 
-    private $response_code;
-
-    private $output;
-
+    private $http_code;
 
     private $request_uri = "http://api.worksnaps.com/api";
 
@@ -46,24 +43,18 @@ class HTTPRequests {
      */
     public function get(){
 
-        //Start cUrl to get the data
-        $ch = curl_init();
-
         //Get URI
         $endpoint = $this->buildEndpoint();
 
-        if( curl_exec( $ch ) === false ) {
-            curl_error( $ch );
-        }
+        //Create a Curl Instance
+        $curl = new Curl( $endpoint, $this->token );
 
-        curl_setopt( $ch, CURLOPT_URL, $endpoint );
-        curl_setopt( $ch, CURLOPT_USERPWD, $this->token );
-        curl_setopt( $ch, CURLOPT_POST, 0 );
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 
-        $response = curl_exec( $ch );
+        //Do a curl to the endpoint
+        $curl->doCurl(  'get' );
 
-        curl_close( $ch ); // close cURL resource
+        //Receive Response
+        $response = $curl->response;
 
         return $this->xmlToArray( $response );
 
@@ -96,28 +87,51 @@ class HTTPRequests {
 
     }
 
+    /**
+     * Send a post request to the server and check whether the response is success or not
+     *
+     * @param $data
+     * @return bool
+     */
     public function post( $data ){
 
         $endpoint = $this->buildEndpoint();
 
         $curl = new Curl( $endpoint, $this->token );
 
-
         $data = $this->arrayToXml( $data );
 
         $curl->doCurl( 'post', $data );
 
-
-
-
+        return ( $curl->response == 200) ? true : false;
 
     }
 
-    public function put( $data ){
+    public function put( $id, $data ){
+
+        $endpoint = $this->buildEndpoint();
+
+        $endpoint = str_replace( '{id}', $id, $endpoint );
+
+        $curl = new Curl( $endpoint, $this->token );
+
+        $curl->doCurl( 'put', $data );
+
+        return ( $curl->response == 200) ? true : false;
 
     }
 
     public function delete( $id ){
+
+        $endpoint = $this->buildEndpoint();
+
+        $endpoint = str_replace( '{id}', $id, $endpoint );
+
+        $curl = new Curl( $endpoint, $this->token );
+
+        $curl->doCurl( 'delete' );
+
+        return ( $curl->response == 200) ? true : false;
 
     }
 

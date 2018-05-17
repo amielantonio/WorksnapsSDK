@@ -66,8 +66,26 @@ class Projects extends Worksnaps {
 
     }
 
+    /**
+     * Updates a specific Project in Worksnaps
+     *
+     * @param $id
+     * @param $data
+     * @return bool|string
+     */
+    public function updateProject( $id, $data){
 
-    public function updateProject(){
+        $request = new Request( $this->projectEndpoint, $this->token);
+
+        return ( $request->put( $id, $data ) )? true : "Something unexpected happened";
+
+    }
+
+    public function deleteProject( $id ){
+
+        $request = new Request( $this->projectEndpoint, $this->token );
+
+        return ( $request->delete( $id ) )? true : "Something unexpected happened";
 
     }
 

@@ -73,3 +73,6 @@ fabric.properties
 
 node_modules/
 /vendor/
+
+
+composer.lock
