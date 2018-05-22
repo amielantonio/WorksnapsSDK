@@ -4,8 +4,10 @@
 namespace Worksnaps\Request;
 
 use Worksnaps\Request\Curl;
+use \SimpleXMLElement as SimpleXML;
 
 class HTTPRequests {
+
 
 
     private $response;
@@ -76,7 +78,6 @@ class HTTPRequests {
         //Create a Curl Instance
         $curl = new Curl( $endpoint, $this->token );
 
-
         //Do a curl to the endpoint
         $curl->doCurl(  'get' );
 
@@ -107,6 +108,13 @@ class HTTPRequests {
 
     }
 
+    /**
+     * Send a put request to the server
+     *
+     * @param $id
+     * @param $data
+     * @return bool
+     */
     public function put( $id, $data ){
 
         $endpoint = $this->buildEndpoint();
@@ -121,6 +129,12 @@ class HTTPRequests {
 
     }
 
+    /**
+     * Sends a delete request to the server
+     *
+     * @param $id
+     * @return bool
+     */
     public function delete( $id ){
 
         $endpoint = $this->buildEndpoint();
@@ -181,7 +195,7 @@ class HTTPRequests {
      */
     private function arrayToXml( $array ){
 
-        $xml = new \SimpleXMLElement( '<root/>' );
+        $xml = new SimpleXML( '<root/>' );
         array_walk_recursive( $array, array($xml, 'addChild') );
 
         return $xml->asXML();

@@ -81,6 +81,13 @@ class Projects extends Worksnaps {
 
     }
 
+
+    /**
+     * Deletes project
+     *
+     * @param $id
+     * @return bool|string
+     */
     public function deleteProject( $id ){
 
         $request = new Request( $this->specificProjectEndpoint, $this->token );
