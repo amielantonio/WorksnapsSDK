@@ -12,16 +12,24 @@ use Worksnaps\Request\HTTPRequests as Request;
  */
 class Projects extends Worksnaps {
 
+    /**
+     * Endpoint that gets all the projects
+     * @var string
+     */
     private $projectsEndpoint = '/projects.xml';
 
+    /**
+     * Endpoint for specific projects
+     * @var string
+     */
     private $specificProjectEndpoint = '/projects/{id}.xml';
 
     /**
      * {@inheritdoc}
      */
-    public function __construct($token)
+    public function __construct( $token )
     {
-        parent::__construct($token);
+        parent::__construct( $token );
     }
 
 
@@ -53,7 +61,7 @@ class Projects extends Worksnaps {
     }
 
     /**
-     * Create a new project to worksnaps
+     * Create a new project to Worksnaps
      *
      * @param $data
      * @return bool|string
@@ -73,7 +81,7 @@ class Projects extends Worksnaps {
      * @param $data
      * @return bool|string
      */
-    public function updateProject( $id, $data){
+    public function updateProject( $id, $data ){
 
         $request = new Request( $this->specificProjectEndpoint, $this->token);
 
@@ -95,8 +103,5 @@ class Projects extends Worksnaps {
         return ( $request->delete( $id ) )? true : "Something unexpected happened";
 
     }
-
-
-
 
 }

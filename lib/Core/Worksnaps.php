@@ -18,7 +18,11 @@ abstract class Worksnaps {
      */
     protected $token;
 
-
+    /**
+     * Worksnaps constructor.
+     *
+     * @param $token
+     */
     protected function __construct( $token ){
 
         //Set Token to start worksnaps API

@@ -9,17 +9,41 @@ use \SimpleXMLElement as SimpleXML;
 class HTTPRequests {
 
 
-
+    /**
+     *
+     * @var
+     */
     private $response;
 
+    /**
+     *
+     * @var
+     */
     private $http_code;
 
-    private $request_uri = "http://api.worksnaps.com/api";
+    /**
+     *
+     * @var string
+     */
+    private $base_uri = "http://api.worksnaps.com/api";
 
+    /**
+     *
+     * @var
+     */
     private $endpoint;
 
+    /**
+     *
+     * @var
+     */
     private $token;
 
+    /**
+     * Variable that stores the error of the HTTP Requests
+     *
+     * @var
+     */
     private $err;
 
     /**
@@ -150,11 +174,33 @@ class HTTPRequests {
     }
 
     /**
-     * Set the request_uri to use HTTPS protocol
+     * Set the base_uri to use HTTPS protocol
      */
     public function useHttps(){
 
-        $this->request_uri = 'https://api.worksnaps.com/api';
+        $this->base_uri = 'https://api.worksnaps.com/api';
+
+    }
+
+    /**
+     * Gets the error of the existing request;
+     *
+     * @return mixed
+     */
+    public function error(){
+
+        return $this->err;
+
+    }
+
+    /**
+     * Get the HTTP response of the request
+     *
+     * @return mixed;
+     */
+    public function httpResponse(){
+
+        return $this->http_code;
 
     }
 
@@ -165,7 +211,7 @@ class HTTPRequests {
      */
     private function buildEndpoint(){
 
-        return $this->request_uri . $this->endpoint;
+        return $this->base_uri . $this->endpoint;
 
     }
 
@@ -201,22 +247,5 @@ class HTTPRequests {
         return $xml->asXML();
 
     }
-
-    /**
-     * Method to convert XML response to JSON response
-     *
-     * @param $xml
-     * @return string
-     */
-    private function xmlToJson( $xml ){
-
-        $xml = simplexml_load_string( $xml );
-
-        $jsonResult = json_encode($xml);
-
-        return $jsonResult;
-
-    }
-
 
 }

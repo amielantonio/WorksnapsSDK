@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Config Request for curl
+ */
 
 return [
 

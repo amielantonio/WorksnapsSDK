@@ -15,10 +15,10 @@ require_once '../vendor/autoload.php';
  *
  */
 
-use Worksnaps\Api\Projects;
+use Worksnaps\Api\Projects as WorksnapsProject;
 
 
-$projects = new Projects( 'LHKjhf9yNXFZMAnV0Db33f7uD28rxeITgEjES5nE' );
+$projects = new WorksnapsProject( 'LHKjhf9yNXFZMAnV0Db33f7uD28rxeITgEjES5nE' );
 
 
 var_dump( $projects->getProjects() );

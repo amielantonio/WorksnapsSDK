@@ -22,12 +22,18 @@ class Tasks extends Worksnaps{
     /**
      * {@inheritdoc}
      */
-    public function __construct($token)
+    public function __construct( $token )
     {
-        parent::__construct($token);
+        parent::__construct( $token );
     }
 
-
+    /**
+     *
+     *
+     * @param $projectID
+     * @param string $taskID
+     * @return mixed
+     */
     public function getTasks( $projectID, $taskID = '' ){
 
         $request = new Request( $this->tasksEndpoint, $this->token );
@@ -38,7 +44,7 @@ class Tasks extends Worksnaps{
 
     public function createTask( $data ){
 
-
+        $request = new Request( $this->tasksEndpoint, $this->token );
 
     }
 
@@ -46,7 +52,7 @@ class Tasks extends Worksnaps{
 
     }
 
-    public function deleteTask( $projectID, $taskID){
+    public function deleteTask( $projectID, $taskID ){
 
     }
 
